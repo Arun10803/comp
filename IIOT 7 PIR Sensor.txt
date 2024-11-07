@@ -1,0 +1,100 @@
+const int pirPin = 2;   // PIR sensor output pin
+const int ledPin = 9; // LED pin
+const int buzPin = 3;
+int motionState = LOW;   // Initial state of motion
+
+void setup() {
+  Serial.begin(9600);          // Start serial communication
+  pinMode(pirPin, INPUT);      // Set PIR sensor pin as input
+  pinMode(ledPin, OUTPUT);     // Set LED pin as output
+  pinMode(buzPin, OUTPUT);
+}
+
+void loop() {
+  motionState = digitalRead(pirPin); // Read PIR sensor state
+
+  if (motionState == HIGH) {
+    digitalWrite(ledPin, HIGH); // Turn on LED
+    digitalWrite(buzPin, HIGH);
+    Serial.println("Motion detected!"); // Print message
+    delay(100); // Delay to prevent flooding Serial Monitor
+  } else {
+    digitalWrite(ledPin, LOW);  // Turn off LED
+    digitalWrite(buzPin, LOW);    
+  }
+  
+  delay(100); // Small delay to improve responsiveness
+}
+
+
+
+
+
+'''
+This code is written for an Arduino microcontroller to control an LED and a buzzer based on the input from a PIR (Passive Infrared) sensor, which detects motion. Let's break it down step by step:
+
+Pin Definitions:
+cpp
+Copy code
+const int pirPin = 2;   // PIR sensor output pin
+const int ledPin = 9; // LED pin
+const int buzPin = 3;
+pirPin = 2: The PIR sensor is connected to pin 2 on the Arduino. It outputs a HIGH signal when motion is detected, and LOW when there is no motion.
+ledPin = 9: The LED is connected to pin 9. When the sensor detects motion, the LED will light up.
+buzPin = 3: The buzzer is connected to pin 3. It will sound when motion is detected.
+Initial State:
+cpp
+Copy code
+int motionState = LOW;   // Initial state of motion
+motionState is a variable that keeps track of whether motion is detected. Initially, it's set to LOW, meaning no motion is detected.
+Setup Function:
+cpp
+Copy code
+void setup() {
+  Serial.begin(9600);          // Start serial communication
+  pinMode(pirPin, INPUT);      // Set PIR sensor pin as input
+  pinMode(ledPin, OUTPUT);     // Set LED pin as output
+  pinMode(buzPin, OUTPUT);     // Set Buzzer pin as output
+}
+Serial.begin(9600): Initializes serial communication at a baud rate of 9600, allowing you to monitor the sensor's state using the Serial Monitor.
+pinMode(pirPin, INPUT): Sets the PIR sensor pin (pin 2) as an input, meaning the Arduino will read data from this pin.
+pinMode(ledPin, OUTPUT): Sets the LED pin (pin 9) as an output, allowing the Arduino to control the LED.
+pinMode(buzPin, OUTPUT): Sets the buzzer pin (pin 3) as an output.
+Loop Function:
+cpp
+Copy code
+void loop() {
+  motionState = digitalRead(pirPin); // Read PIR sensor state
+motionState = digitalRead(pirPin): Reads the current state of the PIR sensor. If motion is detected, motionState will be HIGH; otherwise, it will be LOW.
+cpp
+Copy code
+  if (motionState == HIGH) {
+    digitalWrite(ledPin, HIGH); // Turn on LED
+    digitalWrite(buzPin, HIGH); // Turn on Buzzer
+    Serial.println("Motion detected!"); // Print message
+    delay(100); // Delay to prevent flooding Serial Monitor
+  } else {
+    digitalWrite(ledPin, LOW);  // Turn off LED
+    digitalWrite(buzPin, LOW);  // Turn off Buzzer    
+  }
+If motionState is HIGH (motion detected):
+The LED is turned on (digitalWrite(ledPin, HIGH)).
+The buzzer is turned on (digitalWrite(buzPin, HIGH)).
+A message "Motion detected!" is sent to the Serial Monitor using Serial.println().
+delay(100): A small delay to prevent flooding the Serial Monitor with messages.
+If no motion is detected (motionState == LOW):
+The LED is turned off (digitalWrite(ledPin, LOW)).
+The buzzer is turned off (digitalWrite(buzPin, LOW)).
+Final Delay:
+cpp
+Copy code
+  delay(100); // Small delay to improve responsiveness
+}
+A small delay(100) is added to improve the responsiveness of the system by preventing it from constantly checking the sensor too quickly.
+Summary:
+The program continuously monitors the PIR sensor.
+If motion is detected, it turns on the LED and buzzer and prints a message to the Serial Monitor.
+If no motion is detected, it turns off the LED and buzzer.
+
+
+'''
